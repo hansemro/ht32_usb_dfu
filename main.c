@@ -26,8 +26,8 @@ static void jump_to_application(void) __attribute__ ((noreturn));
 static void jump_to_application(void) {
 
     /* Use the application's vector table */
-    // Copy Vector Table to RAM_START(0x10000000)
-    memcpy((void*) 0x10000000, (void*)APP_BASE, 512);
+    // Copy Vector Table to RAM_START(0x20000000)
+    memcpy((void*) 0x20000000, (void*)APP_BASE, 512);
 
     /* Initialize the application's stack pointer */
     __set_MSP(*((volatile uint32_t*)(APP_BASE)));
@@ -43,24 +43,24 @@ static void jump_to_application(void) {
  * Application entry point.
  */
 int main(void) {
-  halInit();
-  /*
-   * System initializations.
-   * - Kernel initialization, the main() function becomes a thread and the
-   *   RTOS is active.
-   */
-  chSysInit();
+    halInit();
+    /*
+     * System initializations.
+     * - Kernel initialization, the main() function becomes a thread and the
+     *   RTOS is active.
+    */
+    chSysInit();
 
-  /*
-   * Normal main() thread activity, in this demo it does nothing except
-   * increasing the minutes counter.
-   */
-  usbDisconnectBus(&USBD1);
-  chThdSleepMilliseconds(1500);
-  usbStart(&USBD1, &usbcfg);
-  usbConnectBus(&USBD1);
+    /*
+     * Normal main() thread activity, in this demo it does nothing except
+     * increasing the minutes counter.
+    */
+    usbDisconnectBus(&USBD1);
+    chThdSleepMilliseconds(1500);
+    usbStart(&USBD1, &usbcfg);
+    usbConnectBus(&USBD1);
 
-  while(1){
-    chThdSleepSeconds(600);
-  }
+    while(1){
+        chThdSleepSeconds(600);
+    }
 }

@@ -61,6 +61,8 @@ int main(void) {
         }
     }
 
+    FMC->SBVT[1] = 0;
+
     /*
      * Normal main() thread activity, in this demo it does nothing except
      * increasing the minutes counter.

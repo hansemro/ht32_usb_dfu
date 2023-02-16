@@ -5,10 +5,9 @@
 #include <stdbool.h>
 
 #define FLASH_PAGE_SIZE 1024
-#define MAX_FLASH_ADDR 0x10000
-#define FLASH_BASE 0x0
+#define MAX_FLASH_ADDR (0x10000 - FLASH_PAGE_SIZE) // 63 kiB
 #define BL_SIZE 0x2000
-#define APP_BASE (FLASH_BASE + BL_SIZE)
+#define APP_BASE 0x3400
 
 size_t target_get_max_fw_size(void);
 uint16_t target_get_timeout(void);

@@ -19,6 +19,8 @@
 #include "usbdfu.h"
 #include <string.h>
 
+#define IAP_BOOT_MAGIC 0x55aafaf5
+
 #define CM_RESET_VECTOR_OFFSET    4
 
 static void jump_to_application(void) __attribute__ ((noreturn));
@@ -50,6 +52,14 @@ int main(void) {
      *   RTOS is active.
     */
     chSysInit();
+
+    /* Stay in DFU if BOOT1=1 and BOOT0=0 */
+    if (FMC->VMCR != 2) {
+        /* Jump to application if SBVT1 is not IAP boot magic number */
+        if (FMC->SBVT[1] != IAP_BOOT_MAGIC) {
+            jump_to_application();
+        }
+    }
 
     /*
      * Normal main() thread activity, in this demo it does nothing except

@@ -89,8 +89,8 @@ PROJECT = usbdfu
 MCU  = cortex-m3
 
 # Imported source files and paths.
-CHIBIOS = ../../../../ChibiOS
-CHIBIOS_CONTRIB = $(CHIBIOS)/../ChibiOS-Contrib
+CHIBIOS = ./ChibiOS
+CHIBIOS_CONTRIB = ./ChibiOS-Contrib
 CONFDIR  := ./cfg
 BUILDDIR := ./build
 DEPDIR   := ./.dep
